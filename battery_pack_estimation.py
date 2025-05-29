@@ -34,7 +34,7 @@ class CostEstimator(QWidget):
         # Input fields for cell cost
         self.cell_inputs = {}
         cell_params = [
-            ('N', 'Number of cells', '1000000'),
+            ('N', 'Number of cells', '5000000'),
             ('C', 'Cell capacity (Ah)', '10'),
             ('V', 'Nominal voltage (V)', '3.2'),
             ('M_li', 'Lithium carbonate cost ($/kg)', '17.5'),
@@ -47,7 +47,7 @@ class CostEstimator(QWidget):
             ('F', 'Manufacturing cost ($/kWh)', '12.5'),
             ('O', 'Overhead and R&D cost ($/kWh)', '7.5'),
             ('E_D', 'Engineering & Development cost per cell ($)', '1'),
-            ('scrap_rate', 'Scrap rate (%)', '10'),
+            ('scrap_rate', 'Scrap rate (%)', '20'),
             ('warranty_rate', 'Warranty failure rate (%)', '0.5'),
         ]
 
