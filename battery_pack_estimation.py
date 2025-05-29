@@ -16,7 +16,7 @@ class CostEstimator(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('Battery Cost Estimator')
+        self.setWindowTitle('Battery Cost Estimator v1.01')
         self.setGeometry(100, 100, 600, 500)
 
         # Create tab widget
@@ -31,10 +31,9 @@ class CostEstimator(QWidget):
         cell_layout = QVBoxLayout()
         cell_form = QFormLayout()
 
-        # Input fields for cell cost
         self.cell_inputs = {}
         cell_params = [
-            ('N', 'Number of cells', '5000000'),
+            ('N', 'Number of cells', '1000000'),
             ('C', 'Cell capacity (Ah)', '10'),
             ('V', 'Nominal voltage (V)', '3.2'),
             ('M_li', 'Lithium carbonate cost ($/kg)', '17.5'),
@@ -200,6 +199,26 @@ class CostEstimator(QWidget):
 
         except ValueError:
             self.pack_result.setText("Error: Please ensure all inputs are valid numbers.")
+
+    def calculate_energy_density(self):
+        try:
+            C = float(self.cell_inputs['C'].text())
+            V = float(self.cell_inputs['V'].text())
+            
+            # Assuming average cell weight based on material usage
+            total_material_weight = 0
+            for factor in ['li_factor', 'fe_factor', 'gr_factor', 'el_factor', 'cu_factor', 'al_factor']:
+                total_material_weight += float(self.cell_inputs[factor].text()) * C
+            
+            energy = C * V  # Wh
+            energy_density = energy / (total_material_weight/1000)  # Wh/kg
+            
+            return f"\nEnergy Density Metrics:\n" \
+                   f"Cell energy: {energy:.1f} Wh\n" \
+                   f"Cell weight: {total_material_weight/1000:.2f} kg\n" \
+                   f"Energy density: {energy_density:.1f} Wh/kg"
+        except ValueError:
+            return "\nError calculating energy density"
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
