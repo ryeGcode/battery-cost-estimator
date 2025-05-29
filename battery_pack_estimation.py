@@ -31,6 +31,7 @@ class CostEstimator(QWidget):
         cell_layout = QVBoxLayout()
         cell_form = QFormLayout()
 
+        # Input fields for cell cost
         self.cell_inputs = {}
         cell_params = [
             ('N', 'Number of cells', '1000000'),
